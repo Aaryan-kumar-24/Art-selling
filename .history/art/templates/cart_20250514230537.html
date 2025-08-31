@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Cart - Art Selling Website</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #ffe2e2, #fad0c4);
+    }
+
+    .containers {
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 20px;
+      background: #fff;
+      border-radius: 20px;
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
+    }
+
+    .card {
+      background: linear-gradient(to right, #fff1eb, #ace0f9);
+      border: none;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+    }
+
+    .btn-remove, .btn-wishlist {
+      font-size: 0.9rem;
+      padding: 6px 12px;
+      border-radius: 10px;
+      font-weight: bold;
+    }
+
+    .btn-remove { background-color: #e74c3c; color: white; }
+    .btn-wishlist { background-color: #8e44ad; color: white; }
+
+    .total-row {
+      text-align: right;
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: #2c3e50;
+      margin-top: 30px;
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 30px;
+    }
+
+    .btn-continue {
+      background: linear-gradient(45deg, #00c9ff, #92fe9d);
+      color: white;
+    }
+
+    .btn-checkout {
+      background: linear-gradient(45deg, #f77062, #fe5196);
+      color: white;
+    }
+
+    .btn-continue:hover, .btn-checkout:hover {
+      opacity: 0.9;
+    }
+  </style>
+</head>
+<body>
+
+  {% include "header.html" %}
+
+  <h1 class="text-center my-4">Your Shopping Cart <i class="fa-solid fa-cart-shopping"></i></h1>
+  <div class="containers">
+    <div id="cart-container"></div>
+    <div class="total-row" id="total-price">Total: ₹0</div>
+
+    <div class="buttons">
+      <a href="{% url 'all_artworks' %}" class="btn btn-continue">← Continue Shopping</a>
+      <a href="{% url 'purchase' %}" class="btn btn-checkout">Proceed to Checkout →</a>
+    </div>
+  </div>
+
+  {% include "footer.html" %}
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      let cart = JSON.parse(localStorage.getItem("cart")) || [];
+      const cartContainer = document.getElementById("cart-container");
+      const totalPriceEl = document.getElementById("total-price");
+
+      function updateCartUI() {
+        cartContainer.innerHTML = "";
+        let total = 0;
+
+        if (cart.length === 0) {
+          cartContainer.innerHTML = "<p class='text-center'>Your cart is empty.</p>";
+          totalPriceEl.style.display = "none";
+          return;
+        }
+
+        cart.forEach(item => {
+          total += parseFloat(item.price) || 0;
+
+          const card = document.createElement("div");
+          card.className = "card mb-4";
+          card.innerHTML = `
+            <div class="row g-0 align-items-center">
+              <div class="col-md-4">
+                <img src="${item.image}" alt="${item.title}" class="img-fluid w-100 h-100">
+              </div>
+              <div class="col-md-6">
+                <div class="card-body">
+                  <h5 class="card-title">${item.title}</h5>
+                  <p class="card-text"><span class="badge bg-success">Price: ₹${item.price}</span></p>
+                  <p class="card-text">${item.disc}</p>
+                </div>
+              </div>
+              <div class="col-md-2 d-flex flex-column align-items-center justify-content-center gap-2 p-2">
+                <button class="btn btn-remove w-100 remove-btn" data-title="${item.title}">
+                  <i class="fa fa-trash"></i> Remove
+                </button>
+                <button class="btn btn-wishlist w-100"><i class="fa fa-heart"></i> Wishlist</button>
+              </div>
+            </div>
+          `;
+          cartContainer.appendChild(card);
+        });
+
+        totalPriceEl.style.display = "block";
+        totalPriceEl.innerText = "Total: ₹" + total.toLocaleString("en-IN");
+        localStorage.setItem("cart", JSON.stringify(cart));
+      }
+
+      updateCartUI();
+
+      document.addEventListener("click", function (e) {
+        if (e.target.classList.contains("remove-btn")) {
+          const title = e.target.getAttribute("data-title");
+          cart = cart.filter(item => item.title !== title);
+          updateCartUI();
+        }
+      });
+    });
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

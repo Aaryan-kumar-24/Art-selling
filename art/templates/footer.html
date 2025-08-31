@@ -1,0 +1,170 @@
+<style>
+footer {
+  background: linear-gradient(135deg, #e7e7e7ff, #d8d8d8ff);
+  color: #333;
+  padding: 50px 0 20px 0;
+  font-family: 'Segoe UI', sans-serif;
+  position: relative;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 1s ease;
+}
+footer.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Floating Shapes */
+footer::before,
+footer::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  animation: floatShape 8s infinite ease-in-out alternate;
+}
+footer::before {
+  width: 150px;
+  height: 150px;
+  top: -40px;
+  left: -40px;
+  background: rgba(255, 215, 0, 0.25);
+}
+footer::after {
+  width: 200px;
+  height: 200px;
+  bottom: -50px;
+  right: -50px;
+  background: rgba(0, 191, 255, 0.25);
+}
+@keyframes floatShape {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(20px); }
+}
+
+/* Columns in same row */
+.footer-columns {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 25px;
+}
+.footer-column {
+  flex: 1;
+  min-width: 220px;
+  border-radius: 15px;
+  padding: 20px;
+  backdrop-filter: blur(6px);
+  transition: all 0.3s ease;
+}
+
+/* Headings */
+footer h5 {
+  font-weight: 700;
+  margin-bottom: 15px;
+  color: #222;
+  position: relative;
+}
+footer h5::after {
+
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  width: 40px;
+  height: 3px;
+  border-radius: 2px;
+  background: #222;
+}
+
+/* Links */
+footer a {
+  color: #444;
+  text-decoration: none;
+  display: block;
+  margin-bottom: 8px;
+  /* Removed hover effect */
+}
+
+/* Social Icons */
+.social-icons a {
+  font-size: 1.3rem;
+  margin-right: 10px;
+  border-radius: 50%;
+  padding: 8px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  /* Removed hover effect */
+}
+
+/* Footer Bottom */
+.footer-bottom {
+  border-top: 1px solid #bbb;
+  margin-top: 30px;
+  padding-top: 12px;
+  text-align: center;
+  font-size: 14px;
+  color: #555;
+}
+</style>
+
+<footer id="main-footer">
+  <div class="container">
+    <div class="footer-columns">
+
+      <!-- About Us -->
+      <div class="footer-column">
+        <h5>📝 About Us</h5>
+        <p>We connect artists & buyers worldwide. Discover art, share creativity, and bring beauty into your life.</p>
+      </div>
+
+      <!-- Quick Links -->
+      <div class="footer-column">
+        <h5>📌 Quick Links</h5>
+        <a href="/">Home</a>
+        <a href="/learn/">Learn</a>
+        <a href="/artworks/">All Artworks</a>
+        <a href="/contact/">Contact Us</a>
+        <a href="/profile/">Your Profile</a>
+        <a href="/cart/">Cart</a>
+      </div>
+
+      <!-- Contact -->
+      <div class="footer-column">
+        <h5>📞 Contact</h5>
+        <p><i class="fas fa-map-marker-alt me-2"></i> Dayanand Sagar Academy Of Technology, Kanakapura Road, Bangalore</p>
+        <p><i class="fas fa-phone me-2"></i> 9310625964</p>
+        <p><i class="fas fa-envelope me-2"></i> amankumarjanuary@gmail.com</p>
+      </div>
+
+      <!-- Follow Us -->
+      <div class="footer-column">
+        <h5>🌐 Follow Us</h5>
+        <div class="social-icons mt-3">
+          <a href="#"><i class="fab fa-facebook-f"></i></a>
+          <a href="https://www.instagram.com/_aaryan__24/"><i class="fab fa-instagram"></i></a>
+          <a href="https://youtube.com/@aryavarta_twinbro"><i class="fab fa-youtube"></i></a>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      &copy; 2025 Aryavarta Artist. All rights reserved. @ARYAVARTA_TWINBRO
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Fade-up animation on scroll
+  const footer = document.getElementById("main-footer");
+  function revealFooter() {
+    const footerPos = footer.getBoundingClientRect().top;
+    const windowHeight = window.innerHeight;
+    if (footerPos < windowHeight - 50) {
+      footer.classList.add("visible");
+    }
+  }
+  window.addEventListener("scroll", revealFooter);
+  revealFooter(); // Initial check
+</script>

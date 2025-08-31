@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>🎨 Let's Connect Through Art</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&family=Shadows+Into+Light&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css"/>
+
+  <style>
+
+    body {
+  background: linear-gradient(to right, #e1ece8ff, #e7ebe0ff, #eee8e3ff);
+}
+
+    @keyframes bgFlow {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .art-form-wrapper {
+      max-width: 800px;
+      margin: 100px auto ;
+      background: #ffffffdd;
+      border: 5px dashed #ffa07a;
+      border-radius: 30px;
+      padding: 25px 30px;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .art-form-wrapper::before,
+    .art-form-wrapper::after {
+      content: "";
+      position: absolute;
+      width: 180px;
+      height: 180px;
+      background: radial-gradient(circle, #fcd5ce, #ffb4a2);
+      border-radius: 50%;
+      animation: floatBlob 12s ease-in-out infinite alternate;
+      opacity: 0.6;
+      z-index: 0;
+    }
+
+    .art-form-wrapper::before {
+      top: -50px;
+      left: -50px;
+    }
+
+    .art-form-wrapper::after {
+      bottom: -60px;
+      right: -60px;
+    }
+
+    @keyframes floatBlob {
+      0% { transform: scale(1) translateY(0px); }
+      100% { transform: scale(1.2) translateY(-20px); }
+    }
+
+    h1 {
+      font-family: 'Indie Flower', cursive;
+      text-align: center;
+      font-size: 2rem;
+      margin-bottom: 25px;
+      color: #e63946;
+      position: relative;
+    }
+
+    h1::after {
+      content: "🖌️💌";
+      position: absolute;
+      top: 5px;
+      right: 20px;
+      font-size: 1.6rem;
+      animation: bounce 2s infinite ease-in-out;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-5px); }
+    }
+
+    form {
+      z-index: 2;
+      position: relative;
+    }
+
+    .art-input-group {
+      margin-bottom: 15px;
+      position: relative;
+    }
+
+    .art-input-group label {
+      font-size: 1.1rem;
+      margin-bottom: 10px;
+      color: #444;
+      display: block;
+    }
+
+    .art-input-group input,
+    .art-input-group select,
+    .art-input-group textarea {
+      width: 100%;
+      height:80px;
+      
+      margin-bottom: 25px;
+      padding: 10px 14px;
+      border: none;
+      border-radius: 15px;
+      background: #fff0f6;
+      font-family: 'Indie Flower', cursive;
+      font-size: 1.4rem;
+      box-shadow: inset 0 0 5px #f08080;
+      transition: all 0.3s ease;
+    }
+
+    .art-input-group input:focus,
+    .art-input-group select:focus,
+    .art-input-group textarea:focus {
+      outline: none;
+      box-shadow: 0 0 10px #f08080;
+      transform: scale(1.02);
+    }
+
+    #feedback {
+      height: 80px;
+      resize: vertical;
+    }
+
+    .btn-art-submit {  border: 1px solid #ddd; /* Subtle border for structure */
+  padding: 10px 22px;
+  margin-left:180px;
+  border-radius: 50px;
+  font-size: 1.75rem;
+  font-weight: 500;
+  cursor: pointer;
+  background-color: white;
+  color: #333;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.28);
+  transition: background-color 0.25s ease, color 0.25s ease, box-shadow 0.25s ease, transform 0.15s ease;
+
+    }
+
+    .btn-art-submit:hover {
+      background: linear-gradient(to left, #ffafcc, #e63946);
+      transform: scale(1.05);
+      box-shadow: 0 8px 20px rgba(255, 182, 193, 0.4);
+    }
+
+    .row-cols-2 {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .row-cols-2 .art-input-group {
+      flex: 1 1 48%;
+    }
+
+    @media (max-width: 768px) {
+      .row-cols-2 .art-input-group {
+        flex: 1 1 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  {% include "header.html" %}
+
+  <div class="art-form-wrapper">
+    <h1>Connect with Your Artistic Soul</h1>
+
+<form method="POST" action="{% url 'contact' %}" enctype="multipart/form-data" class="fun-form">
+    {% csrf_token %}
+      <div class="row-cols-2">
+        <div class="art-input-group">
+          <label for="phone">📞 Your Magical Phone Number</label>
+          <input type="number" name="phonenumber" placeholder="e.g. 9876543210">
+        </div>
+
+        <div class="art-input-group">
+          <label for="email">📨 Your Email Id</label>
+          <input type="email" name="emailid"  placeholder="e.g. artist@email.com">
+        </div>
+
+        <div class="art-input-group">
+         <label for="state">🌍 Your State</label>
+          <input type="text" name="state"  placeholder="e.g Bihar">
+        </div>
+
+        <div class="art-input-group">
+
+         <label for="city">🏙️  Your City</label>
+          <input type="text" name="city"  placeholder="e.g Bangalore">
+        </div>
+
+      <div class="art-input-group">
+        <label for="address">📍 Your Address</label>
+        <input type="text" name="address"  placeholder="e.g. 1234 Creative Lane">
+      </div>
+
+      <div class="art-input-group">
+        <label for="feedback">🖼️ Your review Message</label>
+        <textarea name="review"  placeholder="Tell us about your inspiration..."></textarea>
+      </div>
+
+      <button type="submit" class="btn-art-submit">🎉 Send This to Us</button>
+    </form>
+  </div>   </div>  
+
+  {% include "footer.html" %}
+</body>
+</html>

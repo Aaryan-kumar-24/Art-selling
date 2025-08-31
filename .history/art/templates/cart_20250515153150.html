@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Cart - Art Selling Website</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #ffe2e2, #fad0c4);
+      margin: 0;
+    }
+    .containers {
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 20px;
+      background: #fff;
+      border-radius: 20px;
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
+    }
+    h1 {
+      text-align: center;
+      color: #2c3e50;
+      margin-bottom: 30px;
+      font-weight: bold;
+    }
+    .card {
+      background: linear-gradient(to right, #fff1eb, #ace0f9);
+      border: none;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+    }
+    .card img {
+      height: 100%;
+      object-fit: cover;
+      border-radius: 20px 0 0 20px;
+    }
+    .card-body {
+      padding: 25px;
+    }
+    .card-title {
+      font-size: 1.4rem;
+      font-weight: bold;
+      color: #34495e;
+    }
+    .card-text {
+      font-size: 1rem;
+      color: #555;
+      margin-bottom: 8px;
+    }
+    .btn-remove {
+      background-color: rgb(255, 25, 0);
+      color: white;
+    }
+    .btn-remove:hover {
+      background-color: darkred;
+    }
+    .btn-wishlist {
+      background-color: #8e44ad;
+      color: white;
+    }
+    .btn-wishlist:hover {
+      background-color: #f1c40f;
+      color: black;
+    }
+    .total-row {
+      text-align: right;
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: #2c3e50;
+      margin-top: 30px;
+    }
+    .buttons {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 30px;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+    .btn-continue, .btn-checkout {
+      padding: 12px 20px;
+      font-size: 16px;
+      font-weight: bold;
+      border-radius: 10px;
+      color: white;
+      text-decoration: none;
+      transition: 0.3s ease;
+    }
+    .btn-continue {
+      background: linear-gradient(45deg, #00c9ff, #92fe9d);
+    }
+    .btn-checkout {
+      background: linear-gradient(45deg, #f77062, #fe5196);
+    }
+    .btn-continue:hover {
+      background: linear-gradient(45deg, #00b4db, #4ee69d);
+    }
+    .btn-checkout:hover {
+      background: linear-gradient(45deg, #ef476f, #ff6b81);
+    }
+    @media (max-width: 768px) {
+      .buttons {
+        flex-direction: column;
+      }
+      .row.g-0 {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  {% include "header.html" %}
+
+  <h1 style="margin-top:50px">Your Shopping Cart <i class="fa-solid fa-cart-shopping"></i></h1>
+  <div class="containers">
+    <div id="cart-container"></div>
+
+    <!-- Commission Section -->
+    <h4 class="mt-5 mb-3">Commission Requests</h4>
+    <div class="row" id="commission-container"></div>
+
+    <!-- Total Price -->
+    <div class="total-row" id="total-price">Total: ₹0</div>
+
+    <!-- Navigation Buttons -->
+    <div class="buttons">
+      <a href="{% url 'all_artworks' %}" class="btn-continue">← Continue Shopping</a>
+      <a href="{% url 'purchase' %}" class="btn-checkout">Proceed to Checkout →</a>
+    </div>
+  </div>
+
+  {% include "footer.html" %}
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const container = document.getElementById("cart-container");
+      const commissionContainer = document.getElementById("commission-container");
+      const totalEl = document.getElementById("total-price");
+
+      let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+      if (cart.length === 0) {
+        container.innerHTML = "<p class='text-center'>Your cart is empty.</p>";
+        totalEl.style.display = "none";
+        return;
+      }
+
+      let total = 0;
+
+      cart.forEach(item => {
+        if (item.image) {
+          // Regular Artwork Card
+          total += parseFloat(item.price) || 0;
+
+          const card = document.createElement("div");
+          card.className = "card mb-4";
+          card.innerHTML = `
+            <div class="row g-0 align-items-center">
+              <div class="col-md-4">
+                <img src="${item.image.url}" alt="${item.title}" class="img-fluid w-100 h-100">
+              </div>
+              <div class="col-md-6">
+                <div class="card-body">
+                  <h5 class="card-title">${item.title}</h5>
+                  <p class="card-text"><span class="badge bg-success">Price: ₹${item.price}</span></p>
+                  <p class="card-text">${item.disc}</p>
+                </div>
+              </div>
+              <div class="col-md-2 d-flex flex-column align-items-center justify-content-center gap-2 p-2">
+                <button class="btn btn-remove w-100 remove-btn" data-title="${item.title}"><i class="fa fa-trash"></i> Remove</button>
+                <button class="btn btn-wishlist w-100"><i class="fa fa-heart"></i> Wishlist</button>
+              </div>
+            </div>`;
+          container.appendChild(card);
+        } else if (item.medium) {
+          // Commission Card
+          total += parseFloat(item.price) || 0;
+
+          const col = document.createElement("div");
+          col.className = "col-md-6 mb-4";
+          col.innerHTML = `
+            <div class="card h-100 shadow-sm p-3">
+              <div class="card-body">
+                <h5 class="card-title">Commission: ${item.medium}</h5>
+                <p class="card-text">Customization: ${item.customization}</p>
+                <p class="card-text fw-bold text-success">Price: ₹${item.price}</p>
+                <button class="btn btn-sm btn-danger remove-btn" data-medium="${item.medium}"><i class="fa fa-trash"></i> Remove</button>
+              </div>
+            </div>`;
+          commissionContainer.appendChild(col);
+        }
+      });
+
+      totalEl.innerText = "Total: ₹" + total.toLocaleString("en-IN");
+
+      // Remove item
+      document.querySelectorAll(".remove-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+          const title = btn.getAttribute("data-title");
+          const medium = btn.getAttribute("data-medium");
+
+          cart = cart.filter(item => {
+            if (title) return item.title !== title;
+            if (medium) return item.medium !== medium;
+            return true;
+          });
+
+          localStorage.setItem("cart", JSON.stringify(cart));
+          location.reload();
+        });
+      });
+    });
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>artselling</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css" integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  </head>
+  <body>
+
+    
+{% include "header.html"  %}
+    
+<div class="art-title" style="display: flex;justify-content: space-between; margin-top: 20px; padding: 40px; align-items: center; height: 60px; ">
+      <div class="title" style="display: flex; gap: 3px; justify-content: space-evenly; align-items: center; height: 60px; ">
+        <p style="font-size: 2.4rem; font-family:'Times New Roman', Times, serif;">Art Selling</p><p style="font-size: 1rem;"> 
+  <marquee>100+ Best Artworks
+  </marquee></p> 
+      </div>   
+      </div>
+  
+      
+     <div class="a " >
+<div class="logos" style="animation: bounceArt 1.8s infinite;">
+        {% load static %}
+    <div class="logo-container">
+      <img src="{% static 'logo.jpg' %}" alt="Logo">
+      <div class="logo-title">Aryavarta Artseller</div>
+    </div>
+</div>
+<div class="logos_text">
+   
+ 
+<h2 style="font-family:cursive; font-weight: bold; font-size: 3.4rem; color: #333;padding-top:60px;padding-left:30px; align-items: center; justify-content: center; gap: 12px; animation: slideIn 1.5s ease-out;">
+  <span style="animation: pulseColor 3s infinite;"> The Wall </span> 
+  <span style="animation: pulseColor 5s infinite;"> of Art:</span> 
+  <span style="animation: pulseColor 7s infinite;">Explore All Creations</span>  
+</h2> 
+</div>
+</div> 
+      <style>
+
+@keyframes slideIn {
+  0% { opacity: 0; transform: translateY(-30px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes bounceArt {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes rotateEarth {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes pulseColor {
+  0% { color: #000000e9; }
+  10% { color: #000000dd; }
+  20% { color: #000000d3; }
+  30% { color: #000000b0; }
+  40% { color: #00000086; }
+  50% { color: #00000060; }
+  60% { color: #0000007c; }
+  70% { color: #00000096; }
+  80% { color: #000000c1; }
+  90% { color: #000000f0; }
+  100% { color: #000000ff; }
+}
+
+@keyframes slideInText {
+  0% { opacity: 0; transform: translateX(-20px); }
+  100% { opacity: 1; transform: translateX(0); }
+}
+
+.a{
+    display:flex;
+    height:26px;
+padding-bottom:200px;
+}
+
+.logos{
+width:80px;
+justify-content:center;
+align-items:center;
+margin-top:54px;
+margin-left:60px;
+
+}
+.logos_text{
+    width:100%;
+}
+    .logo-title {
+      font-size: 1rem;
+      color: #fff;
+      font-weight: 500;
+      margin-top: 3px;
+      text-align: center;
+    }
+
+    .logo-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .logo-container img {
+      height: 80px;
+      width: 80px;
+      border-radius: 50%;
+    }
+
+
+
+      .container {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 10px 10px;
+      }
+
+      .row {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: 60px;
+      }
+
+      .col {
+        flex: 0 1 calc(33.33% - 40px);
+        display: flex;
+        justify-content: center;
+      }
+            .row {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 30px;
+        justify-content: center;
+      }
+      @media (min-width: 1200px) {
+        .row {
+          grid-template-columns: repeat(4, 1fr);
+        }
+      }
+
+      .art-creative-card {
+        width: 300px;
+        height: 640px;
+        background: linear-gradient(145deg, #fff6f6, #fdfdfd);
+        border-radius: 24px;
+        overflow: hidden;
+        box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.12);
+        transition: transform 0.4s ease, box-shadow 0.4s ease;
+      }
+
+      .art-creative-card:hover {
+        transform: scale(1.03);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.76);
+      }
+
+      .art-border {
+        border-radius: 20px;
+        padding: 6px;
+      }
+
+      .art-image-section {
+        position: relative;
+        background-color: #fff;
+        border-radius: 14px;
+        
+        overflow: hidden;
+        height: 370px;
+      }
+
+      .art-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border: 2px solid #fff;
+        border-radius: 22px;
+      }
+
+
+      .art-info-section {
+        padding: 4px 12px 12px;
+        background: #fff;
+        text-align: center;
+      }
+
+      .art-title {
+        font-family: cursive;
+        font-size: 1.8rem;
+        color: #000000ff;
+        margin-bottom: 5px;
+      }
+
+      .art-description {
+        font-size: 0.9rem;
+        color: #444;
+        font-style: italic;
+        margin-bottom: 8px;
+      }
+.art-price-bar {
+  width: 100%;
+  padding: 10px 0;
+  margin-top: 8px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.art-price-amount {
+  font-size: 1.6rem;
+  font-weight: bold;
+  color:  #888888ff;
+  left:-30px;
+  font-family: 'Segoe UI', sans-serif;
+  position: relative;
+}
+
+.art-price-amount::before {
+  content: '(30x24)cm';
+  position: absolute;
+  color: #6c6c6cff;
+  left: 190px;
+  
+  top: 0; 
+  font-size: 0.75rem;
+  animation: blinkNote 2s infinite ease-in-out;
+}
+
+
+
+@keyframes swingBrush {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(15deg); }
+}
+
+@keyframes blinkNote {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
+      .art-actions {
+        display: flex;
+        justify-content: space-evenly;
+        gap: 10px;
+      }
+
+      .art-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 40px;
+  justify-content: center;
+  margin-top: 40px;
+}
+
+@media (min-width: 1200px) {
+  .art-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.art-col {
+  display: flex;
+  justify-content: center;
+}.btn-art-purchase,
+.btn-art-cart {
+  border: 1px solid #ddd; /* Subtle border for structure */
+  padding: 10px 22px;
+  border-radius: 50px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  cursor: pointer;
+  background-color: white;
+  color: #333;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.28);
+  transition: background-color 0.25s ease, color 0.25s ease, box-shadow 0.25s ease, transform 0.15s ease;
+}
+
+/* Purchase hover - subtle professional green */
+.btn-art-purchase:hover {
+  background-color: #e8f5e9;
+  border-color: #4CAF50;
+  color: #2e7d32;
+  box-shadow: 0 2px 6px rgba(76, 175, 80, 0.15);
+  transform: translateY(-1px);
+}
+
+/* Cart hover - subtle professional blue */
+.btn-art-cart:hover {
+  background-color: #e3f2fd;
+  border-color: #1976d2;
+  color: #0d47a1;
+  box-shadow: 0 2px 6px rgba(25, 118, 210, 0.15);
+  transform: translateY(-1px);
+}
+
+/* Pressed effect */
+.btn-art-purchase:active,
+.btn-art-cart:active {
+  transform: translateY(0);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+}
+
+          
+            .fancy-pagination .pagination {
+  gap: 45px;
+  padding: 20px 0;
+  flex-wrap: wrap;
+}
+
+/* General Oval Button Style */
+.fancy-oval {
+  display: inline-block;
+  padding: 12px 28px;
+  border-radius: 50px;
+  font-weight: bold;
+  font-size: 18px;
+  color: white !important;
+  border: none;
+  text-decoration: none;
+  transition: all 0.4s ease;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+  background-size: 300% 300%;
+  animation: fadeIn 0.5s ease forwards;
+}
+
+/* POP-UP EFFECT ON HOVER */
+.fancy-oval:hover {
+  transform: scale(1.15);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+}
+/* ===== Modern Art Gallery Pagination (Animated) ===== */
+.art-pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 14px;
+  padding: 30px 0;
+  flex-wrap: wrap;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+/* Page Buttons */
+.art-page-btn {
+  padding: 10px 20px;
+  border-radius: 30px;
+  border: 1.5px solid #d6d6d6;
+  background: linear-gradient(145deg, #ffffff, #f6f6f6);
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: #444;
+  text-decoration: none;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease, background 0.6s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Hover Effect with Gradient Slide */
+.art-page-btn::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: #d7d7d7ff;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  z-index: -1;
+}
+
+.art-page-btn:hover {
+  transform: translateY(-2px) scale(1.05);
+  border-color: #000000ff;
+  box-shadow: 0 6px 16px rgba(132, 132, 132, 0.4);
+}
+
+.art-page-btn:hover::after {
+  opacity: 1;
+}
+
+/* Active Page with Pulse Animation */
+.art-page-btn.active {
+  background: linear-gradient(145deg, #ffe29f, #ffa99f);
+  border-color: #ff7b54;
+  color: #222;
+  box-shadow: 0 6px 16px rgba(255,123,84,0.4);
+  animation: pulseActive 1.5s infinite;
+}
+
+@keyframes pulseActive {
+  0%, 100% { transform: scale(1); box-shadow: 0 6px 16px rgba(255,123,84,0.4); }
+  50% { transform: scale(1.05); box-shadow: 0 8px 20px rgba(255,123,84,0.5); }
+}
+
+/* Prev & Next Buttons */
+.art-nav-btn {
+  
+    text-decoration: none;
+  padding: 10px 22px;
+  border-radius: 30px;
+  border: 1.5px solid #d6d6d6;
+  background: linear-gradient(145deg, #ffffff, #f6f6f6);
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: #444;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+/* Slide Animation for Prev/Next */
+.art-nav-btn:hover {
+  border-color: #888;
+  background: linear-gradient(145deg, #f8f8f8, #ececec);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+}
+
+.art-nav-btn:hover i {
+  animation: iconSlide 0.4s forwards;
+}
+/* Make sure icons stay in your theme color */
+.art-page-btn i,
+.art-nav-btn i {
+  color: inherit; /* inherit button text color */
+  transition: color 0.3s ease;
+}
+
+/* Prevent blue hover text/icon */
+.art-page-btn:hover,
+.art-page-btn:hover i,
+.art-nav-btn:hover,
+.art-nav-btn:hover i {
+  color: #222; /* consistent dark theme */
+}
+
+
+@keyframes iconSlide {
+  0% { transform: translateX(0); }
+  50% { transform: translateX(4px); }
+  100% { transform: translateX(0); }
+}
+
+body {
+  background: linear-gradient(to right, #e1ece8ff, #e7ebe0ff, #eee8e3ff);
+}
+.row > .col {
+  margin-bottom: 2.9rem;
+
+}
+
+
+
+          </style>
+<div class="container">
+  <div class="art-grid">
+    {% for artwork in artworks %}
+    <div class="art-col" style="padding-bottom:16px;">
+      <div class="art-creative-card">
+        <div class="art-border">
+          <div class="art-image-section">
+            <img src="{{ artwork.art.url }}" class="art-img" alt="{{ artwork.title }}">
+           
+          </div>
+        </div>
+        <div class="art-info-section">
+          <h5 class="art-title text-uppercase">{{ artwork.title }}</h5>
+          <p class="art-description">{{ artwork.discription }}</p>
+<div class="art-price-bar">
+  <span class="art-price-amount">
+    <i class="fas fa-tag"></i> Price :  ₹{{ artwork.price }}
+  </span>
+</div>
+
+          <div class="art-actions">
+            <a href="{% url 'purchase' %}" class="btn-art-purchase">🎨 Buy Now</a>
+            <button class="btn-art-cart add-to-cart"
+              data-title="{{ artwork.title }}"
+              data-price="{{ artwork.price }}"
+              data-image="{{ artwork.art.url }}"
+              data-disc="{{ artwork.discription }}">
+              🛒 Add to Cart
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+    <br>
+          <br>
+
+          <br>
+          <br>
+          
+
+
+<div class="art-pagination">
+  
+  {% if artworks.has_previous %}
+  <a href="?page={{ artworks.previous_page_number }}" class="art-nav-btn">
+    <i class="fas fa-arrow-left"></i> Prev
+  </a>
+  {% endif %}
+  
+  <a href="?page=1" class="art-page-btn"><i class="fas fa-palette"></i> 1</a>
+  <a href="?page=2" class="art-page-btn"><i class="fas fa-brush"></i> 2</a>
+  <a href="?page=3" class="art-page-btn"><i class="fas fa-swatchbook"></i> 3</a>
+  
+  {% if artworks.has_next %}
+  <a href="?page={{ artworks.next_page_number }}" class="art-nav-btn">
+    Next <i class="fas fa-arrow-right"></i>
+  </a>
+  {% endif %}
+
+</div>
+
+        {% include "footer.html"  %}
+    <script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+      integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
+      integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
+      crossorigin="anonymous"
+    ></script>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css "
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const cartButtons = document.querySelectorAll(".add-to-cart");
+    const currentUsername = "{{ request.user.username }}";
+    const userCartKey = "cart_" + currentUsername;
+
+    cartButtons.forEach(button => {
+      button.addEventListener("click", () => {
+        const title = button.getAttribute("data-title");
+        const price = button.getAttribute("data-price");
+        const image = button.getAttribute("data-image");
+        const disc = button.getAttribute("data-disc");
+
+        const item = { title, price, image, disc };
+
+        let cart = JSON.parse(localStorage.getItem(userCartKey)) || [];
+
+        // Ensure unique addition
+        if (!cart.find(x => x.title === title)) {
+          cart.push(item);
+          localStorage.setItem(userCartKey, JSON.stringify(cart));
+          alert("Added to cart!");
+        } else {
+          alert("Item is already in cart");
+        }
+      });
+    });
+  });
+</script>
+
+
+  </body>
+</html>

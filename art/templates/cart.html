@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>🛒 Art Cart</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    /* ===== Base Styles ===== */
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(to right, #e1ece8, #e7ebe0, #eee8e3);
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+      animation: fadeInPage 1s ease forwards;
+    }
+
+    h1.title {
+      text-align: center;
+      font-size: 3rem;
+      margin-top: 40px;
+      color: #333;
+      font-weight: bold;
+      font-family: cursive;
+      animation: slideDown 1s ease forwards;
+    }
+
+    .cart-container {
+      max-width: 900px; 
+      margin: 40px auto;
+      padding: 30px;
+      background: #ffffff;
+      border-radius: 25px;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+      animation: fadeInContainer 1s ease forwards;
+    }
+
+    /* ===== Artwork Cards ===== */
+    .art-card {
+      display: flex;
+      align-items: flex-start;
+      background: linear-gradient(145deg, #fff6f6, #fdfdfd);
+      border-radius: 20px;
+      margin-bottom: 25px;
+      padding: 15px;
+      box-shadow: 2px 2px 15px rgba(0, 0, 0, 0.1);
+      transform: translateY(50px);
+      opacity: 0;
+      animation: cardFadeIn 0.8s forwards;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .art-card:hover {
+      transform: translateY(-5px) scale(1.02);
+      box-shadow: 0 20px 30px rgba(0,0,0,0.15);
+    }
+
+    .art-img {
+      width: 250px;
+      height: 350px;
+      border-radius: 15px;
+      object-fit: cover;
+      margin-right: 20px;
+      transition: transform 0.5s ease;
+    }
+
+    .art-img:hover {
+      transform: scale(1.05);
+    }
+
+    .art-details h4 {
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: #000;
+      font-family: cursive;
+      margin-bottom: 10px;
+      animation: fadeInText 0.8s ease forwards;
+    }
+
+    .art-description {
+      font-size: 1.1rem;
+      color: #444;
+      margin-bottom: 15px;
+      font-style: italic;
+    }
+
+    .purchase-message {
+      font-size: 1rem;
+      color: #2a2a2aff;
+      background: linear-gradient(145deg,  #ffffffff , #d4f8fc47);
+      border-left: 4px solid #cecbcbff;
+      padding: 12px;
+      border-radius: 10px;
+      margin-bottom: 10px;
+      font-family: 'Segoe UI', sans-serif;
+      opacity: 0;
+      animation: messageFade 1s ease forwards;
+      animation-delay: 0.3s;
+    }
+
+    .badge-price {
+      font-size: 2.3rem;
+      padding-left:120px;
+      font-weight: bold;
+      color: #888;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 10px;
+    }
+
+    /* ===== Remove & Wishlist Buttons (original design) ===== */
+    .btn-art-purchase,
+    .btn-art-cart {
+      width:160px;
+      border: 1px solid #ddd;
+      padding: 8px 18px;
+      margin-right:40px;
+      margin-left:40px;
+      border-radius: 50px;
+      font-size: 1.2rem;
+      font-weight: 500;
+      cursor: pointer;
+      background-color: white;
+      color: #333;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.28);
+      transition: background-color 0.25s ease, color 0.25s ease, box-shadow 0.25s ease, transform 0.15s ease;
+    }
+
+    .btn-remove {
+      border-color: #ff4d4f;
+      color: #ff4d4f;
+    }
+    .btn-remove:hover {
+      background-color: #fff1f0;
+      border-color: #ff4d4f;
+      color: #a8071a;
+      transform: translateY(-1px);
+    }
+
+    .btn-wishlist {
+      border-color: #1976d2;
+      color: #1976d2;
+    }
+    .btn-wishlist:hover {
+      background-color: #e3f2fd;
+      border-color: #1976d2;
+      color: #0d47a1;
+      transform: translateY(-1px);
+    }
+
+    /* ===== Continue & Checkout Buttons ===== */
+    .btn-continue {
+      border-color: #4caf50;
+      color: #2e7d32;
+      text-decoration:none;
+      transform: translateY(30px);
+      opacity: 0;
+    }
+
+    .btn-checkout {
+      border-color: #ff9800;
+      color: #e65100;
+      text-decoration:none;
+      transform: translateY(30px);
+      opacity: 0;
+    }
+
+    .card-buttons {
+      display: flex;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .total-price {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #2d3436;
+      text-align: right;
+      margin-top: 30px;
+      animation: fadeInText 1s ease forwards;
+    }
+
+    .action-buttons {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 30px;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    @media (max-width: 768px) {
+      .art-card {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .art-img {
+        margin-bottom: 15px;
+        width: 100%;
+        height: auto;
+      }
+      .action-buttons {
+        flex-direction: column;
+        align-items: center;
+      }
+      .total-price {
+        text-align: center;
+      }
+    }
+
+    /* ===== Animations ===== */
+    @keyframes fadeInPage { 0% { opacity: 0; } 100% { opacity: 1; } }
+    @keyframes slideDown { 0% { opacity: 0; transform: translateY(-50px);} 100% { opacity: 1; transform: translateY(0);} }
+    @keyframes fadeInContainer { 0% { opacity: 0; transform: translateY(30px);} 100% { opacity: 1; transform: translateY(0);} }
+    @keyframes cardFadeIn { 0% { opacity: 0; transform: translateY(50px);} 100% { opacity: 1; transform: translateY(0);} }
+    @keyframes fadeInText { 0% { opacity: 0; transform: translateY(20px);} 100% { opacity: 1; transform: translateY(0);} }
+    @keyframes messageFade { 0% { opacity: 0; transform: translateX(-30px);} 100% { opacity: 1; transform: translateX(0);} }
+
+  </style>
+</head>
+
+<body>
+  {% include "header.html" %}
+
+  <h1 class="title">🛒 My Art Cart</h1>
+
+  <div class="cart-container">
+    <div id="cart-items"></div>
+
+    <div class="total-price" id="total-price">Total: ₹0</div>
+
+    <div class="action-buttons">
+      <a href="{% url 'all_artworks' %}" class="btn-continue"><i class="fas fa-arrow-left"></i> Continue Shopping</a>
+      <a href="{% url 'purchase' %}" class="btn-checkout">Proceed to Checkout <i class="fas fa-arrow-right"></i></a>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const container = document.getElementById("cart-items");
+      const totalEl = document.getElementById("total-price");
+
+      const username = "{{ request.user.username }}";
+      const userCartKey = "cart_" + username;
+      let cart = JSON.parse(localStorage.getItem(userCartKey)) || [];
+
+      if (cart.length === 0) {
+        container.innerHTML = "<p class='text-center fs-5'>🎨 Your cart is empty. Add some creative magic!</p>";
+        totalEl.style.display = "none";
+        return;
+      }
+
+      let total = 0;
+      cart.forEach((item, index) => {
+        total += parseFloat(item.price) || 0;
+
+        const card = document.createElement("div");
+        card.className = "art-card";
+        card.style.animationDelay = `${index * 0.15}s`; // stagger animation
+        card.innerHTML = `
+          <img src="${item.image}" alt="${item.title}" class="art-img">
+          <div class="art-details">
+            <h4><i class="fas fa-palette me-2"></i>${item.title}</h4>
+            <p class="art-description"><i class="fas fa-feather me-2 text-secondary"></i>${item.disc}</p>
+            <div class="purchase-message">
+              🎨 This unique artwork brings creativity and inspiration into your space. 
+              Owning it supports the artist and adds timeless beauty to your collection. 
+              Thank you for choosing this masterpiece! 💖
+            </div>
+            <span class="badge-price"> Price : ₹${item.price}</span>
+            <div class="card-buttons">
+              <button class="btn-art-purchase btn-remove remove-btn" data-title="${item.title}"> <i class="fa fa-trash"></i> Remove</button>
+              <button class="btn-art-cart btn-wishlist"> <i class="fa fa-heart"></i> Wishlist</button>
+            </div>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+
+      totalEl.innerText = "Total: ₹" + total.toLocaleString("en-IN");
+
+      document.querySelectorAll(".remove-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+          const title = btn.getAttribute("data-title");
+          cart = cart.filter(item => item.title !== title);
+          localStorage.setItem(userCartKey, JSON.stringify(cart));
+          location.reload();
+        });
+      });
+
+      // Animate Continue & Checkout Buttons
+      document.querySelectorAll(".btn-continue, .btn-checkout").forEach((btn, idx) => {
+        btn.style.animation = `fadeInText 0.5s ease forwards`;
+        btn.style.animationDelay = `${0.3 + idx * 0.1}s`;
+      });
+    });
+  </script>
+
+  {% include "footer.html" %}
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

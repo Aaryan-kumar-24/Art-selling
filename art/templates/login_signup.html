@@ -1,0 +1,205 @@
+{% include "header.html" %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Login & Signup</title>
+  
+        {% load static %}
+<style>
+  
+body {
+  background: linear-gradient(to right, #e1ece8ff, #e7ebe0ff, #eee8e3ff);
+}
+  .containers {
+    margin-bottom:100px;
+    margin-left:570px;
+    
+    margin-top:30px;
+    width: 100%;
+    max-width: 400px;
+    background:white; 
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(166, 166, 166, 0);
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    animation: fadeSlideIn 1s ease;
+    
+  }
+
+  @keyframes fadeSlideIn {
+    from {
+      opacity: 0;
+      transform: translateY(-40px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  h2 {
+    text-align: center;
+    color: #000000ff;
+    margin-bottom: 20px;
+    font-weight: 600;
+    letter-spacing: 1px;  
+    
+  }
+    label {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 1.1rem;
+      color: #333;
+      font-weight: 500;
+    }
+
+    input, select {
+      width: 100%;
+      height:42px;
+      padding: 12px 15px;
+      border-radius: 12px;
+      border: none;
+      background: rgba(255,255,255,0.8);
+      box-shadow: inset 0 2px 5px rgba(0,0,0,0.1);
+      font-size: 1rem;
+      transition: all 0.3s ease;
+    }
+
+    input:focus, select:focus {
+      outline: none;
+      box-shadow: 0 0 12px rgba(77, 77, 77, 0.7);
+      background: rgba(255,255,255,0.95);
+    }
+
+    input::placeholder {
+      color: #545454ff;
+      font-weight: 500;
+    }
+  .button {  border: 1px solid #ddd; /* Subtle border for structure */
+  padding: 10px 22px;
+  margin-left:90px;
+    margin-top:20px;
+  border-radius: 50px;
+  font-size: 1.15rem;
+  font-weight: 500;
+  width:150px;
+  cursor: pointer;
+  background-color: white;
+  color: #333;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.28);
+  }
+
+.button:hover {
+  width:150px;
+  
+      background-color: #def6ceff;
+      border-color: #6eff4dff;
+      color: #000000ff;
+      transform: translateY(-1px);
+  transform: scale(1.1);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.35);
+}
+
+  .toggle-link {
+    text-align: center;
+    margin-top: 15px;
+    font-size: 14px;
+    color: #000000ff;
+  }
+
+  .toggle-link a {
+    color: #0091ffff;
+    cursor: pointer;
+    text-decoration: underline;
+    font-weight: bold;
+  }
+
+  .hidden {
+    display: none;
+  }
+
+</style>
+</head>
+<body>
+
+
+
+  <div class="containers">
+    <!-- Login Form -->
+    <div id="loginForm">
+      <h2>Login</h2>
+      <form method="POST">
+        {% csrf_token %}
+        <input type="hidden" name="form_type" value="login">
+
+        <label>Username:</label>
+        <input type="text" name="username" required>
+
+        <label>Password:</label>
+        <input type="password" name="password" required>
+
+        <button type="submit" class="button" >Login</button>
+      </form>
+      <div class="toggle-link">
+        Don't have an account? <a onclick="showSignup()">Signup here</a>
+      </div>
+    </div>
+
+    <!-- Signup Form -->
+    <div id="signupForm" class="hidden">
+      <h2>Signup</h2>
+      <form method="POST">
+        {% csrf_token %}
+        <input type="hidden" name="form_type" value="signup">
+
+        <label>User Name:</label>
+        <input type="text" name="name" required>
+
+        <label>Email:</label>
+        <input type="email" name="email" required>
+
+        <label>Phone Number:</label>
+        <input type="text" name="phone" required>
+
+        <label>Password:</label>
+        <input type="password" name="password" required>
+
+        <label>Confirm Password:</label>
+        <input type="password" name="confirm_password" required>
+
+        <label>You want to:</label>
+        <select name="role" required>
+          <option value="buyier">Buy Art</option>
+          <option value="seller">Sell Art</option>
+        </select>
+
+        <button type="submit" class="button" >Signup</button>
+      </form>
+      <div class="toggle-link">
+        Already have an account? <a onclick="showLogin()">Login here</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function showSignup() {
+      document.getElementById("loginForm").classList.add("hidden");
+      document.getElementById("signupForm").classList.remove("hidden");
+    }
+
+    function showLogin() {
+      document.getElementById("signupForm").classList.add("hidden");
+      document.getElementById("loginForm").classList.remove("hidden");
+    }
+  </script>
+</body>
+</html>
+
+{% include "footer.html" %}

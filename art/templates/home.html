@@ -1,0 +1,897 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>artselling</title>
+<!-- Swiper JS -->
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css" integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  </head>
+
+{% include "header.html"  %}
+
+  <body>
+
+
+    <div
+      id="carouselExampleDark"
+      class="carousel carousel-dark slide  col-12 "
+      data-bs-ride="carousel"
+    >
+      <div class="carousel-indicators">
+        <button
+          type="button"
+          data-bs-target="#carouselExampleDark"
+          data-bs-slide-to="0"
+          class="active"
+          aria-current="true"
+          aria-label="Slide 1"
+        ></button>
+        <button
+          type="button"
+          data-bs-target="#carouselExampleDark"
+          data-bs-slide-to="1"
+          aria-label="Slide 2"
+        ></button>
+        <button
+          type="button"
+          data-bs-target="#carouselExampleDark"
+          data-bs-slide-to="2"
+          aria-label="Slide 3"
+        ></button>
+      </div>
+      <div class="carousel-inner">
+        <div class="carousel-item active" data-bs-interval="2000">
+          <img src="/static/b4.jpg" height="400px" class="d-block w-100" alt="..." />
+          <div class="carousel-caption  g-4 d-none d-md-block">
+           <a href="/artworks/"> <button class="btn btn-primary me-4" type="button">
+              New Offers
+            </button> </a>
+           <a href="/artworks/"> <button class="btn btn-warning me-4" type="button">Explore</button> </a>
+           <a href="/artworks/"> <button class="btn btn-danger me-4" type="button">
+              Best works
+            </button> </a>
+          </div>
+        </div>
+        <div class="carousel-item" data-bs-interval="2000">
+          <img src="/static/b1.jpg" height="400px" class="d-block w-100" alt="..." />
+          <div class="carousel-caption g-5 d-none d-md-block">
+           <a href="/artworks/"> <button class="btn btn-primary me-4" type="button">
+              Buying
+            </button> </a>
+           <a href="/cart/"> <button class="btn btn-success me-4" type="button">selling</button> </a>
+           <a href="/learn/"> <button class="btn btn-danger me-4" type="button">
+              learning
+            </button> </a>
+          </div>
+        </div>
+        <div class="carousel-item"  data-bs-interval="2000">
+          <img src="/static/b7.jpg" height="400px" class="d-block w-100" alt="..." />
+          <div class="carousel-caption gap-5 d-none d-md-block">
+          </div>
+        </div>
+      </div>
+      <button
+        class="carousel-control-prev"
+        type="button"
+        data-bs-target="#carouselExampleDark"
+        data-bs-slide="prev"
+      >
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button
+        class="carousel-control-next"
+        type="button"
+        data-bs-target="#carouselExampleDark"
+        data-bs-slide="next"
+      >
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
+
+
+  
+<style>
+body {
+  background: linear-gradient(to right, #e1ece8ff, #e7ebe0ff, #eee8e3ff);
+}
+
+
+
+    .card-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-evenly;
+      gap: 30px;
+    }
+
+    .art-flip-card {
+      perspective: 1200px;
+      width: 340px;
+      height: 590px;
+    }
+
+    .shadow-card {
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      border-radius: 16px !important;
+    }
+
+    .shadow-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 14px 35px rgba(0, 0, 0, 0.65);
+    }
+
+    .art-flip-inner {
+      width: 100%;
+      height: 100%;
+      transition: transform 1s;
+      transform-style: preserve-3d;
+      position: relative;
+    }
+
+    .art-flip-card:hover .art-flip-inner {
+      transform: rotateY(180deg);
+    }
+
+    .art-flip-front {
+      width: 100%;
+      height: 100%;
+      border-radius: 20px;
+      overflow: hidden;
+      position: absolute;
+      backface-visibility: hidden;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+    }
+
+    .art-flip-back {
+      width: 350px;
+      height: 400px;
+      border-radius: 20px;
+      overflow: hidden;
+      position: absolute;
+      backface-visibility: hidden;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+    }
+    .art-flip-front {
+      background: #fff;
+    }
+
+    .art-flip-front video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 20px;
+    }
+
+    .art-flip-back {
+      transform: rotateY(180deg);
+      background: linear-gradient(120deg, #fc466b, #3f5efb);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-around;
+      padding: 25px;
+      position: relative;
+      border: 4px solid #fff;
+      animation: glowBg 5s infinite alternate;
+    }
+
+    .art-flip-back::before,
+    .art-flip-back::after {
+      content: '🎨 🖌️ 🖼️ ✏️ 🧑‍🎨';
+      position: absolute;
+      font-size: 100px;
+      opacity: 0.2;
+      color: white;
+      z-index: 0;
+      white-space: nowrap;
+      pointer-events: none;
+    }
+
+    .art-flip-back::before {
+      top: 20%;
+      left: -10%;
+      transform: rotate(-30deg);
+    }
+
+    .art-flip-back::after {
+      bottom: 10%;
+      right: -15%;
+      transform: rotate(20deg);
+    }
+
+    @keyframes glowBg {
+      0% {
+        box-shadow: 0 0 15px #fc466b, 0 0 30px #3f5efb;
+      }
+      100% {
+        box-shadow: 0 0 30px #ff9a9e, 0 0 50px #6a11cb;
+      }
+    }
+
+    .art-title {
+      font-size: 1.8rem;
+      color: #fff;
+      font-weight: bold;
+      text-shadow: 0 0 5px #fff;
+      background: linear-gradient(to right, #fff, #ffd700);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      z-index: 1;
+    }
+
+    .art-description {
+      font-size: 1rem;
+      color: #fff;
+      background: rgba(255, 255, 255, 0.1);
+      padding: 15px;
+      border-radius: 12px;
+      text-align: justify;
+      line-height: 1.5;
+      position: relative;
+      z-index: 1;
+    }
+
+    .art-location {
+      color: #ffeb3b;
+      font-size: 1.2rem;
+      font-weight: bold;
+      background: rgba(0, 0, 0, 0.2);
+      padding: 8px 16px;
+      border-radius: 10px;
+      backdrop-filter: blur(4px);
+      z-index: 1;
+    }
+
+    .sparkles {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      font-size: 1.4rem;
+      animation: spin 6s linear infinite;
+      opacity: 0.7;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0); }
+      100% { transform: rotate(360deg); }
+    }
+
+.commission-fun-form-wrapper {
+  max-width: 750px;
+  margin: 40px auto;
+  padding: 20px;
+  background: linear-gradient(to right, #fff5f7, #e0f7fa);
+  border: 4px dotted #ffb6b9;
+  border-radius: 25px;
+  box-shadow: 0 12px 25px rgba(0,0,0,0.1);
+  animation: entryZoom 0.8s ease;
+}
+
+.fun-title {
+  font-family: 'Comic Sans MS', cursive;
+  font-size: 1.8rem;
+  color: #d6249f;
+  margin-bottom: 25px;
+  animation: colorFlow 3s ease-in-out infinite alternate;
+}
+
+.fun-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.form-section {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 10px;
+  background: #fff9f2;
+  border-radius: 15px;
+  border: 2px dashed #ffe6fa;
+  box-shadow: inset 0 0 10px #fff0f5;
+}
+
+.field-with-icon {
+  flex: 1 1 45%;
+  display: flex;
+  flex-direction: column;
+}
+
+input, select, textarea {
+  padding: 10px 12px;
+  font-size: 1rem;
+  border: 2px solid #ffecf2;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+  background: #fff;
+}
+
+input:focus, select:focus, textarea:focus {
+  border-color: #ff8fab;
+  box-shadow: 0 0 10px #ffd3e2;
+  transform: scale(1.03);
+}
+
+textarea {
+  resize: none;
+}
+
+.submit-btn {
+  border: 1px solid #ddd; /* Subtle border for structure */
+  padding: 10px 22px;
+  border-radius: 50px;
+  font-size: 1.4rem;
+  font-weight: 500;
+  cursor: pointer;
+  background-color: white;
+  color: #333;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.28);
+  transition: background-color 0.25s ease, color 0.25s ease, box-shadow 0.25s ease, transform 0.15s ease;
+
+}
+
+.submit-btn:hover {
+    background-color: #cdf4d0ff;
+  border-color: #4CAF50;
+  color: #2e7d32;
+  box-shadow: 0 2px 6px rgba(76, 175, 80, 0.15);
+  transform: translateY(-1px);
+  transform: scale(1.15) ;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}
+
+/* Animations */
+@keyframes entryZoom {
+  0% { transform: scale(0.9); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes colorFlow {
+  0% { color: #ff4e50; }
+  50% { color: #f9d423; }
+  100% { color: #6a82fb; }
+}
+
+.bounce {
+  animation: bounceIn 1s;
+}
+.flip {
+  animation: flipIn 1s;
+}
+.paint-fall {
+  animation: paintSplash 1.5s ease;
+}
+.fade-in {
+  animation: fadeIn 1.3s ease;
+}
+
+@keyframes bounceIn {
+  0% { transform: translateY(-30px); opacity: 0; }
+  60% { transform: translateY(10px); opacity: 1; }
+  100% { transform: translateY(0); }
+}
+
+@keyframes flipIn {
+  0% { transform: rotateY(90deg); opacity: 0; }
+  100% { transform: rotateY(0); opacity: 1; }
+}
+
+@keyframes paintSplash {
+  0% { transform: translateY(-100px) rotate(10deg); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateX(30px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+/* Enhance inputs and selects */
+input, select, textarea {
+  padding: 12px 16px;
+  font-size: 1rem;
+  background: white;
+  border: 2px solid transparent;
+  border-radius: 12px;
+  box-shadow: inset 0 0 5px rgba(35, 35, 35, 0.24);
+  transition: 0.4s ease;
+  position: relative;
+  outline: none;
+}
+
+input:hover, select:hover, textarea:hover {
+  box-shadow: 0 0 8px #ff8fab;
+  transform: scale(1.02);
+}
+
+input:focus, select:focus, textarea:focus {
+  background: #ffffff;
+  border: 2px solid #ff8fab;
+  box-shadow: 0 0 12px #ffd3e2, 0 0 15px #ff8fab;
+  transform: scale(1.03);
+}
+
+/* Add glowing border animation */
+@keyframes inputGlow {
+  0% { box-shadow: 0 0 4px #ff6ec4; }
+  50% { box-shadow: 0 0 12px #ff6ec4; }
+  100% { box-shadow: 0 0 4px #ff6ec4; }
+}
+
+/* Optional: bouncing label icon effect */
+.field-with-icon label::before {
+  animation: floatIcon 2.5s ease-in-out infinite, iconGlow 4s ease-in-out infinite;
+}
+
+@keyframes iconGlow {
+  0%, 100% { text-shadow: 0 0 3px #ff69b4; }
+  50% { text-shadow: 0 0 10px #ff69b4, 0 0 20px #ff1493; }
+}
+
+   @keyframes slideIn {
+  0% { opacity: 0; transform: translateY(-30px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes bounceArt {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+
+@keyframes rotateEarth {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes pulseColor {
+  0% { color: #000000e9; }
+  10% { color: #000000dd; }
+  20% { color: #000000d3; }
+  30% { color: #000000b0; }
+  40% { color: #00000086; }
+  50% { color: #00000060; }
+  60% { color: #0000007c; }
+  70% { color: #00000096; }
+  80% { color: #000000c1; }
+  90% { color: #000000f0; }
+  100% { color: #000000ff; }
+}
+
+
+@keyframes slideInText {
+  0% { opacity: 0; transform: translateX(-20px); }
+  100% { opacity: 1; transform: translateX(0); }
+}     
+.cheks{
+  height:25px;
+  width:25px;
+margin-left:350px;
+}
+
+
+      </style>
+
+<h2 style="font-family: cursive; font-weight: bold; font-size: 4rem; color: #333; display: flex;padding:60px; align-items: center; justify-content: center; gap: 12px; animation: slideIn 1.5s ease-out;">
+  <span style="animation: pulseColor 3s infinite;">Blending</span> 
+  <span style=" animation:  pulseColor 5s ease-out;">Art</span> 
+  <span style="animation: pulseColor 2s infinite;">With</span> 
+  <span style="animation:  pulseColor 7s ease-out;">Travel</span> 
+  <span style="display: inline-block; animation: rotateEarth 8s linear infinite;">🌍</span>
+</h2>
+
+  
+  <div class="card-container">
+    
+    <!-- Card 1 -->
+    <div class="art-flip-card">
+      <div class="art-flip-inner">
+        <div class="art-flip-front">
+          <video autoplay muted loop>
+            <source src="/static/hampi_trip.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="art-flip-back">
+          <div class="art-title">🎨 Hampi</div>
+          <div class="art-description">
+            Hampi, a UNESCO treasure, inspires sketches of stone ruins and divine temples with every stroke of the pencil.
+          </div>
+          <div class="art-location">📍 Karnataka</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 2 -->
+    <div class="art-flip-card">
+      <div class="art-flip-inner">
+        <div class="art-flip-front">
+          <video autoplay muted loop>
+            <source src="/static/Stonechariot.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="art-flip-back">
+          <div class="art-title">🖌️ Stone Chariot</div>
+          <div class="art-description">
+            This charcoal recreation brings the legendary chariot of Hampi to life, combining faith, art, and architecture.
+          </div>
+          <div class="art-location">📍 Hampi</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 3 -->
+    <div class="art-flip-card">
+      <div class="art-flip-inner">
+        <div class="art-flip-front">
+          <video autoplay muted loop>
+            <source src="/static/monestary.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="art-flip-back">
+          <div class="art-title">🏯 Coorg Monastery</div>
+          <div class="art-description">
+            The Golden Temple’s murals and vibrant energy spill onto paper in this mixed-media tribute to peace.
+          </div>
+          <div class="art-location">📍 Coorg</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 4 -->
+    <div class="art-flip-card">
+      <div class="art-flip-inner">
+        <div class="art-flip-front">
+          <video autoplay muted loop>
+            <source src="/static/ad.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="art-flip-back">
+          <div class="art-title">🧘 Adiyogi</div>
+          <div class="art-description">
+            A divine presence, Adiyogi becomes the muse for this bold sketch—where tranquility meets cosmic rhythm.
+          </div>
+          <div class="art-location">📍 Chikkamagaluru</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+
+<h2 style="font-family: cursive; font-weight: bold; font-size: 3.6rem; color: #333; display: flex;padding-top:120px;padding-bottom:5px; align-items: center; justify-content: center; gap: 12px; animation: slideIn 1.5s ease-out;">
+  <span style="display: inline-block; animation: bounceArt 1.8s infinite;">🎨</span> 
+  <span style="animation: pulseColor 3s infinite;"> Let’s </span>  
+  <span style="animation: pulseColor 5s infinite;">  Doodle </span>  
+  
+  <span style="animation:  pulseColor 4s ease-out;">Up</span> 
+  <span style="animation:  pulseColor 6s ease-out;">Your</span>
+  <span style="animation:  pulseColor 8s ease-out;">Dreams!</span> 
+  <span style="display: inline-block; animation: bounceArt 1.8s infinite;">💭✨</span>
+  
+</h2>
+
+    
+  <div class="commission-fun-form-wrapper">
+  <form method="POST" action="{% url 'home' %}" enctype="multipart/form-data" class="fun-form">
+    {% csrf_token %}
+    <input type="hidden" name="form_type" value="commission">
+
+    <h2 class="text-center fun-title">🎨 Let’s Paint Your Imagination! ✨</h2>
+
+    <!-- Section 1 -->
+    <div class="form-section bounce">
+      <div class="field-with-icon">
+        <label>📞 Phone</label>
+        <input type="number" name="phone1" required placeholder="Enter your number 🎯">
+      </div>
+      <div class="field-with-icon">
+        <label>📧 Email</label>
+        <input type="email" name="email1" required placeholder="Magical email here ✉️">
+      </div>
+    </div>
+
+    <!-- Section 2 -->
+    <div class="form-section flip">
+      <div class="field-with-icon">
+        <label>🖌️ Art Medium</label>
+        <select name="medium" required>
+          <option disabled selected>Pick your potion...</option>
+          <option>Charcoal</option>
+          <option>Oil Painting</option>
+          <option>Graphite</option>
+          <option>Water Color</option>
+          <option>Pencil Sketch</option>
+          <option>Any Medium</option>
+        </select>
+      </div>
+      <div class="field-with-icon">
+        <label>💰 Price</label>
+        <input type="number" name="price" required placeholder="₹ How much magic?">
+      </div>
+    </div>
+
+    <!-- Section 3 -->
+    <div class="form-section paint-fall">
+      <div class="field-with-icon">
+        <label>🖼️ Reference Image</label>
+        <input type="file" name="image" required>
+      </div>
+      <div class="field-with-icon">
+        <label>🎨 Artist Name</label>
+        <input type="text" name="artist" required placeholder="Who’s the wizard?">
+      </div>
+    </div>
+
+    <!-- Section 4 -->
+    <div class="form-section fade-in">
+      <div class="field-with-icon">
+        <label>✨ Customization Details</label>
+        <textarea name="custom" rows="3" required placeholder="Describe the magic 🧙‍♂️..."></textarea>
+      </div>
+    </div>
+    
+      <div class="form-check  mt-2">
+        <input  class="cheks" type="checkbox" id="gridCheck" required>
+        <label for="gridCheck">
+          🪄 I want to book this enchanted art!
+        </label>
+      </div>
+    
+    <!-- Submit -->
+    <div class="text-center mt-3">
+      <button type="submit" class="submit-btn">🚀 Send to Artist!</button>
+    </div>
+  </form>
+</div>
+
+  
+<h2 style="font-family:cursive; font-weight: bold; font-size: 4rem; color: #333; display: flex;padding-top:160px;padding-bottom:60px; align-items: center; justify-content: center; gap: 12px; animation: slideIn 1.5s ease-out;">
+  <span style="display: inline-block; animation: bounceArt 1.8s infinite;">🏆 </span> 
+  <span style="animation: pulseColor 3s infinite;"> Top </span>   
+  <span style="animation: pulseColor 6s infinite;"> Artist </span>   
+  <span style="display: inline-block;  animation: rotateEarth 8s linear infinite;">🌟</span>
+  
+  <span style="display: inline-block; animation: bounceArt 1.8s infinite;">👩‍🎨</span>
+</h2>
+
+
+
+{% load static %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+
+<style>
+  .artist-card {
+    width: 15rem;
+    padding: 15px;
+    border-radius: 20px;
+    text-align: center;
+    transition: transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+    margin: auto;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(8px);
+    box-shadow: 0px 8px 12px rgba(0, 0, 0, 0.2); /* shadow for all */
+  }
+.artist-card:hover {
+    transform: scale(1.1);
+}
+  /* Slightly bigger and brighter for center card */
+  .swiper-slide-active .artist-card {
+    transform: scale(1.1);
+    background: rgba(255, 255, 255, 0.25);
+    box-shadow: 0px 10px 12px rgba(0, 0, 0, 0.3);
+  }
+    .swiper-slide-active .artist-card:hover {
+    transform: scale(1.15);
+    background: rgba(255, 255, 255, 0.25);
+    box-shadow: 0px 10px 12px rgba(0, 0, 0, 0.3);
+      transform: scale(1.2);
+  }
+
+
+  .artist-card img {
+    height:210px;
+    width: 210px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin: auto;
+    transition: all 0.3s ease;
+    box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.4); /* subtle glow for all */
+  }
+
+  /* Stronger glow for center image */
+  .swiper-slide-active .artist-card img {
+    box-shadow: 0px 0px 20px rgba(255, 255, 255, 0.6),
+                0px 4px 8px rgba(0, 0, 0, 0.2);
+  }
+
+  .artist-card p {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-top: 12px;
+    color: white;
+  }
+
+  .swiper {
+    padding: 50px 0;
+  }
+
+  /* Navigation buttons */
+  .swiper-button-next,
+  .swiper-button-prev {
+    color: white;
+    margin-left:100px;
+    margin-right:100px;
+    text-shadow: 0px 2px 8px rgba(0, 0, 0, 0.5);
+  }
+
+
+
+</style>
+
+<div class="swiper mySwiper">
+  <div class="swiper-wrapper">
+    {% for artist in artists %}
+    <div class="swiper-slide">
+      <div class="artist-card">
+        <img src="{{ artist.artistpic.url }}" alt="{{ artist.artistname }}">
+        <p style="color:black; font-size:1.9rem; font-weight:300; font-family:cursive;">{{ artist.artistname }}</p>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+
+  <!-- Navigation -->
+  <div class="swiper-button-next"></div>
+  <div class="swiper-button-prev"></div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+<script>
+  var swiper = new Swiper(".mySwiper", {
+    effect: "coverflow",
+    grabCursor: true,
+    centeredSlides: true,
+    slidesPerView: 3,
+    loop: true,
+    coverflowEffect: {
+      rotate: 60,   
+      stretch: 0,
+      depth: 180,
+      modifier: 1,
+      slideShadows: false,
+    },
+    pagination: {
+      el: ".swiper-pagination",
+      clickable: true,
+    },
+    navigation: {
+      nextEl: ".swiper-button-next",
+      prevEl: ".swiper-button-prev",
+    },
+  });
+</script>
+
+
+
+  
+<h2 style="font-family: cursive; font-weight: bold; font-size: 3.4rem; color: #333; display: flex;padding-top:160px;padding-bottom:60px; align-items: center; justify-content: center; gap: 12px; animation: slideIn 1.5s ease-out;">
+  <span style="display: inline-block; animation: bounceArt 1.8s infinite;">🖌️ </span> 
+  <span style="animation: pulseColor 3s infinite;"> Top  </span>   
+  <span style="animation: pulseColor 5s infinite;">  Art </span>   
+  <span style="animation: pulseColor 7s infinite;"> Works </span>   
+  <span style="display: inline-block; animation: bounceArt 1.8s infinite;">🎨🖼️</span>
+</h2>
+
+    <div class="container mt-5" style="padding-bottom:100px;">
+      <div class="row row-cols-1 row-cols-md-4 g-4">
+    
+        <!-- Budha -->
+        <div class="col">
+          <div class="card h-100  shadow-card">
+            <img src="/static/king_kohli.jpg" class="card-img-top" style="height: 400px; object-fit: cover;border:10px solid white;" alt="budha">
+            <div class="card-body bg-light">
+              <h5 class="card-title ">Virat Kohli</h5>
+              <p class="card-text">portrait of Virat Kohli, King That has ability to find possibility in every difficulty Drawn By A Great Artist : Tarun</p>
+              <div class="d-flex align-items-center gap-2 price-section">
+                <p class="mb-0 fw-semibold text-dark">Price:</p>
+                <h6 class="mb-0 text-muted text-decoration-line-through">₹3200</h6>
+                <p class="mb-0  fw-bold fs-5">₹2999</p>
+              </div>
+            </div>
+          </div>
+        </div>
+    
+        <!-- Horse -->
+        <div class="col">
+          <div class="card h-100 shadow-card">
+            <img src="/static/horse.jpg" class="card-img-top" style="height: 400px; object-fit: cover;border:10px solid white;" alt="horse">
+            <div class="card-body bg-light">
+              <h5 class="card-title ">Horse</h5>
+              <p class="card-text">An energetic charcoal sketch of a running horse, symbolizing strength and freedom.</p>
+              <div class="d-flex align-items-center gap-2 price-section">
+                <p class="mb-0 fw-semibold text-dark">Price:</p>
+                <h6 class="mb-0 text-muted text-decoration-line-through">₹2700</h6>
+                <p class="mb-0  fw-bold fs-5">₹2199</p>
+              </div>
+            </div>
+          </div>
+        </div>
+    
+        <!-- Adiyogi -->
+        <div class="col">
+          <div class="card h-100 shadow-card">
+            <img src="/static/anime.jpg" class="card-img-top" style="height: 400px; object-fit: cover;border:10px solid white;" alt="adiyogi">
+            <div class="card-body bg-light">
+              <h5 class="card-title ">LUFFY</h5>
+              <p class="card-text">Luffy from One Piece, fearless, cheerful and strong loyalty to friends. Drawn By A Great Artist : Richa</p>
+              <div class="d-flex align-items-center gap-2 price-section">
+                <p class="mb-0 fw-semibold text-dark">Price:</p>
+                <h6 class="mb-0 text-muted text-decoration-line-through">₹3600</h6>
+                <p class="mb-0  fw-bold fs-5">₹2999</p>
+              </div>
+            </div>
+          </div>
+        </div>
+    
+        <!-- Deer -->
+        <div class="col">
+          <div class="card shadow-card">
+            <img src="/static/ram.jpg" class="card-img-top" style="height: 400px; object-fit: cover;border:10px solid white;" alt="deer">
+            <div class="card-body bg-light">
+              <h5 class="card-title ">RAM</h5>
+              <p class="card-text">Lord Ram, revered for his righteousness, courage, humility, inspiring generations. Drawn By A Great Artist : Harshita</p>
+              <div class="d-flex align-items-center gap-2 price-section">
+                <p class="mb-0 fw-semibold text-dark">Price:</p>
+                <h6 class="mb-0 text-muted text-decoration-line-through">₹3100</h6>
+                <p class="mb-0  fw-bold fs-5">₹2999</p>
+              </div>
+            </div>
+          </div>
+        </div>
+    
+      </div>
+    </div>
+
+
+
+{% include "footer.html"  %}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+      integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
+      integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
+      crossorigin="anonymous"
+    ></script>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css "
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>artselling</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css" integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  </head>
+    
+  {% include "header.html"  %}
+ 
+  <style>
+/* Animations */
+@keyframes slideIn {
+  0% { opacity: 0; transform: translateY(-30px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+@keyframes bounceArt {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+@keyframes rotateEarth {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+@keyframes pulseColor {
+  0% { color: #000000e9; }
+  50% { color: #555; }
+  100% { color: #000000ff; }
+}
+
+/* Layout styling */
+.heading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding-top: 60px;
+}
+
+.heading-large {
+  font-family: cursive;
+  font-weight: bold;
+  font-size: 4rem;
+  color: #333;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 8px;
+  animation: slideIn 1.5s ease-out;
+}
+
+.heading-small {
+  font-family: cursive;
+  font-weight: bold;
+  font-size: 2.4rem;
+  color: #333;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 8px;
+  animation: slideIn 1.5s ease-out;
+}
+
+/* Superscript style for emphasis */
+.sup-text {
+  font-size: 0.6em;
+  vertical-align: super;
+  animation: pulseColor 3s infinite;
+}
+
+/* Icon animations */
+.icon-bounce { display: inline-block; animation: bounceArt 1.8s infinite; }
+.icon-rotate { display: inline-block; animation: rotateEarth 8s linear infinite; }
+
+ 
+body {
+  background: linear-gradient(to right, #e1ece8ff, #e7ebe0ff, #eee8e3ff);
+}
+
+
+  .learn-section {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    gap: 60px;
+    padding: 80px 40px;
+  }
+
+  .flip-card {
+    width: 320px;
+    height: 573px; /* 9:16 ratio */
+    perspective: 1200px;
+    border-radius: 25px;
+    transition: transform 0.4s ease-in-out;
+  }
+
+  .flip-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    transition: transform 0.9s ease-in-out;
+    border-radius: 25px;
+  }
+
+  .flip-card:hover .flip-card-inner {
+    transform: rotateY(180deg);
+  }
+
+  .flip-card-front {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.2);
+  }
+
+  .flip-card-back {
+    position: absolute;
+    width: 390px;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 25px;
+    overflow: hidden;
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.2);
+  }
+
+  .flip-card-front {
+    background-color: #000;
+  }
+
+  .flip-card-front video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+.flip-card-back {
+  transform: rotateY(180deg);
+  background: linear-gradient(135deg, #ff6a6aff, #5be562ff); /* more purple-blue contrast */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  padding: 25px;
+  position: relative;
+  border: 4px solid #ffffffcc;
+  animation: glowBgNew 6s ease-in-out infinite alternate;
+  border-radius: 25px;
+}
+
+.flip-card-back::before,
+.flip-card-back::after {
+  content: '🎨 ✏️ 🧑‍🎨 🖌️ 🖼️';
+  position: absolute;
+  font-size: 90px;
+  opacity: 0.15;
+  color: #ffffff;
+  z-index: 0;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.flip-card-back::before {
+  top: 25%;
+  left: -12%;
+  transform: rotate(-25deg);
+}
+
+.flip-card-back::after {
+  bottom: 12%;
+  right: -10%;
+  transform: rotate(15deg);
+}
+
+@keyframes glowBgNew {
+  0% {
+    box-shadow: 0 0 20px #ff6a88, 0 0 35px #5b86e5;
+  }
+  100% {
+    box-shadow: 0 0 35px #fbc2eb, 0 0 60px #a18cd1;
+  }
+}
+
+.art-title {
+  font-size: 1.9rem;
+  font-weight: bold;
+  background: linear-gradient(to right, #ffffff, #ffd700);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 3px rgba(255, 255, 255, 0.6);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  z-index: 1;
+}
+
+.art-description {
+  font-size: 1.05rem;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.12);
+  padding: 16px;
+  border-radius: 14px;
+  text-align: justify;
+  line-height: 1.6;
+  z-index: 1;
+  box-shadow: inset 0 0 5px rgba(255,255,255,0.2);
+}
+
+
+.sparkles {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  font-size: 1.6rem;
+  animation: spin 8s linear infinite;
+  opacity: 0.6;
+  z-index: 2;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0); }
+  100% { transform: rotate(360deg); }
+}
+
+</style>
+
+<div class="heading-container">
+  
+  <!-- First Heading -->
+  <div class="heading-large">
+    <span class="icon-bounce">🖌️</span> 
+    <span class="sup-text">Dive Into</span>
+    <span style="animation: pulseColor 7s ease-out;">The World of Art</span> 
+    <span class="icon-bounce">✍️</span>
+  </div>
+
+  <!-- Second Heading -->
+  <div class="heading-small">
+    <span class="icon-bounce">🎨</span> 
+    <span class="sup-text">Learn Art & </span>  
+    <span style="animation: pulseColor 1.5s ease-out;">Create Magic</span> 
+    <span class="icon-rotate">🌟</span>
+  </div>
+
+</div>
+
+<div class="learn-section">
+  {% for tutorial in learn %}
+  <div class="flip-card">
+    <div class="flip-card-inner">
+      <div class="flip-card-front">
+        <video autoplay muted loop playsinline>
+          <source src="{{ tutorial.vedio.url }}" type="video/mp4">
+        </video>
+      </div>
+<div class="flip-card-back art-flip-back">
+  <div class="sparkles">🌟</div>
+  <div class="art-title"><i class="fas fa-paint-brush"></i> {{ tutorial.title }}</div>
+  <div class="art-description">{{ tutorial.discription }}</div>
+</div>
+
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+
+
+<br>
+<br><br><br>
+
+
+      
+      
+        <pre style="display: flex; justify-content: center; align-items: center; font-size: 2rem; margin-top: 30px;"><i class="fa-solid fa-palette"></i> Learn More</pre>
+      
+<br>
+<br>  
+
+<iframe src="https://www.wikipedia.org/" style="height: 1800px; width: 1500px;">wikipedia</iframe>
+
+  
+  {% include "footer.html"  %}
+  
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+      integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
+      integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
+      crossorigin="anonymous"
+    ></script>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css "
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

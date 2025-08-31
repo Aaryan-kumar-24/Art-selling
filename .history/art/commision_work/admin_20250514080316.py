@@ -1,0 +1,32 @@
+from django.contrib import admin
+from commision_work.models import Commision
+
+class CommisionAdmin(admin.ModelAdmin):
+    list_display = (
+        "title",
+        "discription",
+        "art",
+        "price",
+    )
+
+# Register your models here.
+admin.site.register(Commision, CommisionAdmin)
+
+
+
+
+from django.contrib import admin
+from .models import Commission
+
+class CommissionAdmin(admin.ModelAdmin):
+    list_display = (
+        "email",
+        "phone",
+        "medium",
+        "price",
+        "is_booked",
+    )
+    search_fields = ("email", "phone", "medium")
+    list_filter = ("medium", "is_booked")
+
+admin.site.register(Commission, CommissionAdmin)
